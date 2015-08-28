@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/Jeff/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.0 rc3"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-110bc186efb945fd99a84f670cc0567e6215865b.jar" />
+    </item>
+    <item
+        jar="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/pre-dexed/debug/classes-db3ff0f0f6d457cc60a7c847f486a6957d13394f.jar" />
+    </item>
+    <item
+        jar="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/libs/internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/pre-dexed/debug/internal_impl-23.0.0-e9fb8fb25747b44bb913cd96ea947fad9b46434c.jar" />
+    </item>
+    <item
+        jar="/Users/Jeff/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.5.2/7446d06ec8d4f7ffcc53f1da37c95f200dcb9387/picasso-2.5.2.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="7446d06ec8d4f7ffcc53f1da37c95f200dcb9387">
+        <dex dex="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/pre-dexed/debug/picasso-2.5.2-110bc186efb945fd99a84f670cc0567e6215865b.jar" />
+    </item>
+    <item
+        jar="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
+        <dex dex="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/pre-dexed/debug/classes-3d62d395cfeb42cab485cbc23332ba84f13ab041.jar" />
+    </item>
+    <item
+        jar="/Users/Jeff/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/23.0.0/support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="/Users/Jeff/Bittorrent Sync/Development/git/PopularMovies/app/build/intermediates/pre-dexed/debug/support-annotations-23.0.0-1acc5418c9cb3594cb5c898fc73b98ca33db2ede.jar" />
+    </item>
+
+</items>
