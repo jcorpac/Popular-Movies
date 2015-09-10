@@ -62,7 +62,11 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageView moviePoster = (ImageView)findViewById(R.id.imgPoster);
         String posterURL = Constants.POSTER_BASE_URL +Constants.POSTER_RES+thisMovie.getPosterURL();
-        Picasso.with(this).load(posterURL).into(moviePoster);
+        Picasso.with(this)
+                .load(posterURL)
+                .error(R.drawable.ic_error)
+                .placeholder(R.drawable.ic_placeholder)
+                .into(moviePoster);
 
         TextView userRating = (TextView)findViewById(R.id.txtUserRating);
         userRating.setText(String.valueOf(thisMovie.getVoteAverage()));

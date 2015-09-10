@@ -33,7 +33,11 @@ public class ImageAdapter extends ArrayAdapter<String> {
         //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         imageView.setMinimumHeight(500);
 
-        Picasso.with(getContext()).load(posterURLArray.get(position)).into(imageView);
+        Picasso.with(getContext())
+                .load(posterURLArray.get(position))
+                .error(R.drawable.ic_error)
+                .placeholder(R.drawable.ic_placeholder)
+                .into(imageView);
 
         return imageView;
     }
