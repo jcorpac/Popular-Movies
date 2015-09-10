@@ -1,44 +1,40 @@
 package com.jcorpac.udacity.popularmovies;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-public class ImageAdapter extends BaseAdapter {
-    private Context mContext;
-    private String[] posterURLArray;
+import java.util.ArrayList;
 
-    public ImageAdapter(Context c, String[] posterURLArray) {
-        mContext = c;
-        this.posterURLArray = posterURLArray;
-    }
+public class ImageAdapter extends ArrayAdapter<String> {
 
-    public int getCount() {
-        return posterURLArray.length;
-    }
+    ArrayList<String> posterURLArray;
 
-    public Object getItem(int position) {
-        return posterURLArray[position];
-    }
-
-    public long getItemId(int position) {
-        return position;
+    public ImageAdapter(Activity context, ArrayList<String> urlList){
+        super(context, 0, urlList);
+        posterURLArray = urlList;
     }
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
+
         ImageView imageView;
+
         if (convertView == null) {
-            imageView = new ImageView(mContext);
+            imageView = new ImageView(getContext());
         } else {
             imageView = (ImageView) convertView;
         }
 
-        Picasso.with(mContext).load(posterURLArray[position]).into(imageView);
+        //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        imageView.setMinimumHeight(500);
+
+        Picasso.with(getContext()).load(posterURLArray.get(position)).into(imageView);
+
         return imageView;
     }
 }

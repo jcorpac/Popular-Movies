@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,16 +28,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class MainActivityFragment extends Fragment {
 
     String[] moviesList;
+    String[] thumbnailArray;
 
-    private GridView posterLayout;
     private ImageAdapter movieAdapter;
+    private GridView posterLayout;
 
     public MainActivityFragment() {
         setHasOptionsMenu(true);
@@ -45,8 +46,16 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        updateMovies();
+    }
 
-        posterLayout = (GridView)getActivity().findViewById(R.id.poster_layout);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        posterLayout = (GridView)rootView.findViewById(R.id.poster_layout);
+
+        posterLayout.setAdapter(movieAdapter);
+
         posterLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -55,13 +64,6 @@ public class MainActivityFragment extends Fragment {
                 startActivity(toDetailView);
             }
         });
-
-        updateMovies();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         return rootView;
     }
@@ -94,7 +96,7 @@ public class MainActivityFragment extends Fragment {
 
         String serviceJsonStr = null;
         String[] moviesJson = null;
-        String[] thumbnailArray = null;
+
 
         @Override
         protected String[] doInBackground(String... params) {
@@ -177,12 +179,16 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(String[] movies) {
             super.onPostExecute(movies);
-            moviesList = movies;
+            if (movies != null) {
+                moviesList = movies;
 
-            movieAdapter = new ImageAdapter(getActivity(), thumbnailArray);
-            movieAdapter.notifyDataSetChanged();
-            posterLayout.setAdapter(movieAdapter);
-
+                ArrayList<String> thumbnailArrayList = new ArrayList<>(Arrays.asList(thumbnailArray));
+                movieAdapter = new ImageAdapter(getActivity(), thumbnailArrayList);
+                movieAdapter.notifyDataSetChanged();
+                posterLayout.setAdapter(movieAdapter);
+            } else {
+                Toast.makeText(getContext(), "Error Retrieving New Movies", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
