@@ -85,11 +85,17 @@ public class MainActivityFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.action_settings){
-            startActivity(new Intent(getActivity(), SettingsActivity.class));
-            return true;
+        int itemId = item.getItemId();
+        switch(itemId){
+            case (R.id.action_settings):
+                startActivity(new Intent(getContext(), SettingsActivity.class));
+                return true;
+            case (R.id.action_favorites):
+                startActivity(new Intent(getContext(), FavoritesActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     public class GetMoviesTask extends AsyncTask<String, Void, Movie[]> {
@@ -116,7 +122,6 @@ public class MainActivityFragment extends Fragment {
 
             try {
                 URL serviceURL = new URL(serviceEndpoint.toString());
-                Log.d(LOG_TAG, "doInBackground: " + serviceURL.toString());
                 urlConnection = (HttpURLConnection) serviceURL.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();

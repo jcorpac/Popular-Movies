@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,8 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         txtFavoriteLabel = (TextView) findViewById(R.id.txtFavLabel);
         imgFavoriteStar = (ImageView) findViewById(R.id.imgFavStar);
@@ -131,6 +134,18 @@ public class DetailActivity extends AppCompatActivity {
         int numFavoritesDeleted = getContentResolver().delete(FavoritesEntry.CONTENT_URI.buildUpon().appendPath(thisMovie.getMovieID()).build(), null, null);
         if(numFavoritesDeleted > 0){
             isFavorite = false;
+            getContentResolver().notifyChange(FavoritesEntry.CONTENT_URI, null);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
