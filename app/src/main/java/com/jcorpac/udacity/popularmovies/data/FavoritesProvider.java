@@ -9,7 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
+
+import com.jcorpac.udacity.popularmovies.data.FavoritesContract.FavoritesEntry;
 
 public class FavoritesProvider extends ContentProvider {
     private final String LOG_TAG = this.getClass().getSimpleName();
@@ -39,8 +40,8 @@ public class FavoritesProvider extends ContentProvider {
         switch(match){
             case FAVORITE_WITH_ID:
                 String id = uri.getPathSegments().get(1);
-                favoritesDeleted = db.delete(FavoritesContract.FavoritesEntry.TABLE_NAME,
-                        FavoritesContract.FavoritesEntry._ID + "=?",
+                favoritesDeleted = db.delete(FavoritesEntry.TABLE_NAME,
+                        FavoritesEntry.COLUMN_MOVIE_ID + "=?",
                         new String[]{id});
                 break;
             case ALL_FAVORITES:
@@ -75,9 +76,9 @@ public class FavoritesProvider extends ContentProvider {
 
         switch(match) {
             case ALL_FAVORITES:
-                long id = writeableDb.insert(FavoritesContract.FavoritesEntry.TABLE_NAME, null, values);
+                long id = writeableDb.insert(FavoritesEntry.TABLE_NAME, null, values);
                 if(id > 0){
-                    returnUri = ContentUris.withAppendedId(FavoritesContract.FavoritesEntry.CONTENT_URI, id);
+                    returnUri = ContentUris.withAppendedId(FavoritesEntry.CONTENT_URI, id);
                 } else {
                     throw new android.database.SQLException("Failed to insert row into " + uri.toString());
                 }
@@ -106,7 +107,7 @@ public class FavoritesProvider extends ContentProvider {
 
         switch (match){
             case ALL_FAVORITES:
-                returnCursor = readableDb.query(FavoritesContract.FavoritesEntry.TABLE_NAME,
+                returnCursor = readableDb.query(FavoritesEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -116,9 +117,9 @@ public class FavoritesProvider extends ContentProvider {
                 break;
             case FAVORITE_WITH_ID:
                 String movieId = uri.getLastPathSegment();
-                returnCursor = readableDb.query(FavoritesContract.FavoritesEntry.TABLE_NAME,
+                returnCursor = readableDb.query(FavoritesEntry.TABLE_NAME,
                         projection,
-                        FavoritesContract.FavoritesEntry.COLUMN_MOVIE_ID + "=?",
+                        FavoritesEntry.COLUMN_MOVIE_ID + "=?",
                         new String[]{movieId},
                         null,
                         null,
@@ -140,9 +141,9 @@ public class FavoritesProvider extends ContentProvider {
         switch(match) {
             case FAVORITE_WITH_ID:
                 String id = uri.getPathSegments().get(1);
-                favoritesUpdated = mFavoritesDbHelper.getWritableDatabase().update(FavoritesContract.FavoritesEntry.TABLE_NAME,
+                favoritesUpdated = mFavoritesDbHelper.getWritableDatabase().update(FavoritesEntry.TABLE_NAME,
                         values,
-                        FavoritesContract.FavoritesEntry._ID + "=?",
+                        FavoritesEntry._ID + "=?",
                         new String[]{id});
                 break;
             default: throw new UnsupportedOperationException("Unknown uri: " + uri);

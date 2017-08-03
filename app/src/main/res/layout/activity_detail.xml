@@ -1,12 +1,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin"
-                tools:context="com.jcorpac.udacity.popularmovies.DetailActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.jcorpac.udacity.popularmovies.DetailActivity">
 <ScrollView
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -14,6 +14,37 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/viewFavoriteIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/imgFavStar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_star"
+                android:layout_marginEnd="@dimen/FavStarMargin"
+                android:layout_marginRight="@dimen/FavStarMargin"
+                android:layout_marginStart="@dimen/FavStarMargin"
+                android:layout_marginLeft="@dimen/FavStarMargin"
+                android:layout_gravity="center_horizontal"
+                android:tint="@color/colorFavoriteDisabled" />
+
+            <TextView
+                android:id="@+id/txtFavLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="50dp"
+                android:text="@string/strNotFavorite"
+                tools:text="@string/strFavorite"/>
+
+        </FrameLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +54,9 @@
             android:id="@+id/txtMovieTitle"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_toLeftOf="@id/viewFavoriteIcon"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,6 +68,7 @@
             android:layout_below="@+id/txtMovieTitle"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_marginBottom="4dp"
             />
 
         <TextView
@@ -47,7 +81,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="16dp"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -55,17 +90,19 @@
             android:id="@+id/imgPoster"
             tools:src="@drawable/ic_placeholder"
             android:layout_below="@id/txtSummaryText"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="16dp"/>
 
         <TextView
+            android:id="@+id/txtUserRatingTitle"
+            style="@style/DetailTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/DetailTextStyle"
-            android:text="@string/strUserRatingTitle"
-            android:id="@+id/txtUserRatingTitle"
-            android:layout_below="@id/imgPoster"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
+            android:layout_alignParentStart="true"
+            android:layout_below="@id/imgPoster"
+            android:layout_marginBottom="8dp"
+            android:text="@string/strUserRatingTitle" />
 
         <TextView
             android:layout_width="wrap_content"

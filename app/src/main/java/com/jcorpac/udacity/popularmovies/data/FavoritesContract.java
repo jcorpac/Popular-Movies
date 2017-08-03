@@ -19,7 +19,5 @@ public class FavoritesContract {
         public static final String COLUMN_POSTER_URL = "posterURL";
         public static final String COLUMN_RELEASE_DATE = "releaseDate";
         public static final String COLUMN_VOTE_AVERAGE = "voteAverage";
-        public static final String COLUMN_TRAILERS_URI = "trailersUri";
-        public static final String COLUMN_REVIEWS_URI = "reviewsUri";
     }
 }

@@ -25,4 +25,6 @@
     <string name="strSummaryTitle">Summary: </string>
     <string name="strReleaseDateTitle">Release Date: </string>
     <string name="strUserRatingTitle">User Rating: </string>
+    <string name="strNotFavorite">Not A Fan</string>
+    <string name="strFavorite">Love This Film</string>
 </resources>

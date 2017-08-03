@@ -25,8 +25,6 @@ public class FavoritesDbHelper extends SQLiteOpenHelper {
                 FavoritesEntry.COLUMN_POSTER_URL + " TEXT NOT NULL, " +
                 FavoritesEntry.COLUMN_RELEASE_DATE + " TEXT NOT NULL, " +
                 FavoritesEntry.COLUMN_VOTE_AVERAGE + " REAL NOT NULL, " +
-                FavoritesEntry.COLUMN_TRAILERS_URI + " TEXT NOT NULL, " +
-                FavoritesEntry.COLUMN_REVIEWS_URI + " TEXT NOT NULL, " +
                 "UNIQUE (" + FavoritesEntry.COLUMN_MOVIE_ID + ") ON CONFLICT REPLACE);";
 
         db.execSQL(CREATE_TABLE_SQL);

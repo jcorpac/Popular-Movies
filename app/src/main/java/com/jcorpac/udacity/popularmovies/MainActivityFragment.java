@@ -18,6 +18,8 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.jcorpac.udacity.popularmovies.model.Movie;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +35,7 @@ import java.util.Arrays;
 
 public class MainActivityFragment extends Fragment {
 
-    String[] moviesList;
+    Movie[] moviesList;
     String[] thumbnailArray;
 
     private ImageAdapter movieAdapter;
@@ -90,16 +92,16 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public class GetMoviesTask extends AsyncTask<String, Void, String[]> {
+    public class GetMoviesTask extends AsyncTask<String, Void, Movie[]> {
 
         final String LOG_TAG = this.getClass().getSimpleName();
 
         String serviceJsonStr = null;
-        String[] moviesJson = null;
+        Movie[] movies = null;
 
 
         @Override
-        protected String[] doInBackground(String... params) {
+        protected Movie[] doInBackground(String... params) {
 
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
@@ -114,6 +116,7 @@ public class MainActivityFragment extends Fragment {
 
             try {
                 URL serviceURL = new URL(serviceEndpoint.toString());
+                Log.d(LOG_TAG, "doInBackground: " + serviceURL.toString());
                 urlConnection = (HttpURLConnection) serviceURL.openConnection();
                 urlConnection.setRequestMethod("GET");
                 urlConnection.connect();
@@ -155,20 +158,20 @@ public class MainActivityFragment extends Fragment {
 
             getMovieList();
 
-            return moviesJson;
+            return movies;
         }
 
         private void getMovieList() {
             JSONObject currentMovie;
             try {
                 JSONArray moviesArray =  new JSONObject(serviceJsonStr).getJSONArray("results");
-                moviesJson = new String[moviesArray.length()];
+                movies = new Movie[moviesArray.length()];
                 thumbnailArray = new String[moviesArray.length()];
 
                 for(int i = 0; i<moviesArray.length(); i++){
                     currentMovie = moviesArray.getJSONObject(i);
-                    moviesJson[i] = currentMovie.toString();
-                    thumbnailArray[i] = Constants.POSTER_BASE_URL + Constants.THUMBNAIL_RES + currentMovie.getString("poster_path");
+                    movies[i] = new Movie(currentMovie);
+                    thumbnailArray[i] = movies[i].getPosterThumbnailURL();
                 }
             } catch (JSONException jse) {
                 Log.e(LOG_TAG, "Error retrieving movie list", jse);
@@ -177,7 +180,7 @@ public class MainActivityFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(String[] movies) {
+        protected void onPostExecute(Movie[] movies) {
             super.onPostExecute(movies);
             if (movies != null) {
                 moviesList = movies;
