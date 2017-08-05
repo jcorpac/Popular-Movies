@@ -31,4 +31,8 @@
     <string name="strNotFavorite">Not A Fan</string>
     <string name="strFavorite">Love This Film</string>
     <string name="title_activity_favorites">Favorites</string>
+    <string name="str_movie_trailers_title">Movie Trailers</string>
+
+    <string name="str_view_trailers">View Trailers</string>
+    <string name="str_read_reviews">Read Reviews</string>
 </resources>

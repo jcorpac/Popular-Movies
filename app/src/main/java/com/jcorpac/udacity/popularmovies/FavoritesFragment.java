@@ -19,7 +19,7 @@ import java.util.Arrays;
 
 public class FavoritesFragment extends Fragment {
 
-    private static final String TAG = "FavoritesFragment";
+    private final String LOG_TAG = this.getClass().getSimpleName();
 
     Movie[] favMoviesList;
     String[] thumbnailArray;
@@ -64,7 +64,7 @@ public class FavoritesFragment extends Fragment {
                 null,
                 null,
                 null,
-                FavoritesEntry.COLUMN_MOVIE_ID);
+                FavoritesEntry._ID);
 
         favMoviesList = new Movie[favMoviesCursor.getCount()];
         thumbnailArray = new String[favMoviesCursor.getCount()];

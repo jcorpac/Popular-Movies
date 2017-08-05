@@ -17,17 +17,13 @@ public class Trailer {
         String nameTag = "name";
         String videoIdTag = "key";
         String siteNameTag = "site";
-        String typeTag = "type";
-        final String TRAILER_TYPE = "Trailer";
 
         try {
-            if (trailerJSON.getString(typeTag).equals(TRAILER_TYPE)) {
-                this.trailerName = trailerJSON.getString(nameTag);
-                if(trailerJSON.getString(siteNameTag).equals(YOUTUBE_SITE_NAME)){
-                    this.videoId = trailerJSON.getString(videoIdTag);
-                } else {
-                    return;
-                }
+            this.trailerName = trailerJSON.getString(nameTag);
+            if(trailerJSON.getString(siteNameTag).equals(YOUTUBE_SITE_NAME)){
+                this.videoId = trailerJSON.getString(videoIdTag);
+            } else {
+                return;
             }
         } catch (JSONException jse) {
             Log.e(LOG_TAG, "Error parsing movie JSON");

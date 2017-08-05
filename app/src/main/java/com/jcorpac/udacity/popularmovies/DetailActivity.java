@@ -1,6 +1,5 @@
 package com.jcorpac.udacity.popularmovies;
 
-import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,9 +17,9 @@ import com.jcorpac.udacity.popularmovies.data.FavoritesContract.FavoritesEntry;
 import com.jcorpac.udacity.popularmovies.model.Movie;
 import com.squareup.picasso.Picasso;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private String LOG_TAG = this.getClass().getSimpleName();
+    private final String LOG_TAG = this.getClass().getSimpleName();
     private Movie thisMovie;
 
     private ImageView imgFavoriteStar;
@@ -82,16 +82,19 @@ public class DetailActivity extends AppCompatActivity {
         releaseDate.setText(thisMovie.getReleaseDate());
 
         Cursor favoriteEntry = getContentResolver().query(FavoritesEntry.CONTENT_URI.buildUpon().appendPath(thisMovie.getMovieID()).build(),
-                null, null, null, FavoritesEntry._ID);
+                    null, null, null, FavoritesEntry._ID);
         isFavorite = (favoriteEntry != null && favoriteEntry.getCount() > 0);
+        if(favoriteEntry != null)
+            favoriteEntry.close();
 
         View favoritesIcon = findViewById(R.id.viewFavoriteIcon);
-        favoritesIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toggleFavorite();
-            }
-        });
+        favoritesIcon.setOnClickListener(this);
+
+        Button btnTrailers = (Button)findViewById(R.id.btnTrailers);
+        btnTrailers.setOnClickListener(this);
+
+        Button btnReviews = (Button)findViewById(R.id.btnReviews);
+        btnReviews.setOnClickListener(this);
 
         displayFavorite();
     }
@@ -149,15 +152,21 @@ public class DetailActivity extends AppCompatActivity {
         }
     }
 
-    public void playYoutubeVideo(String videoId) {
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + videoId));
-        Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse("http://www.youtube.com/watch?v=" + videoId));
-        try {
-            startActivity(appIntent);
-        } catch (ActivityNotFoundException ex) {
-            startActivity(webIntent);
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        Intent intent;
+        switch (id) {
+            case R.id.viewFavoriteIcon:
+                toggleFavorite();
+                break;
+            case R.id.btnTrailers:
+                intent = new Intent(DetailActivity.this, TrailersActivity.class);
+                intent.putExtra("trailersUri", thisMovie.getTrailersUri());
+                intent.putExtra("movieTitle", thisMovie.getTitle());
+                startActivity(intent);
+
+                break;
         }
     }
-
 }
