@@ -1,6 +1,5 @@
 package com.jcorpac.udacity.popularmovies;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -45,9 +44,7 @@ public class FavoritesFragment extends Fragment {
         posterLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent toDetailView = new Intent(getActivity(), DetailActivity.class);
-                toDetailView.putExtra(Constants.DETAIL_INTENT_LABEL, favMoviesList[position]);
-                startActivity(toDetailView);
+                startActivity(DetailActivity.newIntent(getActivity(), favMoviesList[position]));
             }
         });
         return rootView;

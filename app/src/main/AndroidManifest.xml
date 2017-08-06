@@ -29,7 +29,7 @@
         </activity>
         <activity
             android:name=".DetailActivity"
-            android:label="@string/title_activity_detail"/>
+            android:label="@string/title_activity_detail" />
         <activity
             android:name=".FavoritesActivity"
             android:label="@string/title_activity_favorites"
@@ -38,13 +38,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jcorpac.udacity.popularmovies.MainActivity" />
         </activity>
-        <activity android:name=".TrailersActivity"/>
+        <activity android:name=".TrailersActivity" />
 
         <provider
             android:name=".data.FavoritesProvider"
             android:authorities="com.jcorpac.udacity.popularmovies"
             android:exported="false" />
 
+        <activity android:name=".ReviewsActivity"></activity>
     </application>
 
 </manifest>

@@ -35,4 +35,11 @@
 
     <string name="str_view_trailers">View Trailers</string>
     <string name="str_read_reviews">Read Reviews</string>
+
+    <string name="str_review_title">Review By</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec enim quis elit hendrerit porta eget eget velit. Donec magna lorem, dignissim eget lectus vitae, eleifend lobortis tellus. Mauris blandit elit vitae nunc malesuada, et rutrum nulla rhoncus. Pellentesque varius ante diam, ornare viverra diam posuere id. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc sollicitudin vulputate ligula, eget congue ipsum pharetra quis. Maecenas eget mauris at enim condimentum interdum eget vitae lectus. Sed in dignissim ipsum, sit amet lobortis lectus. Suspendisse potenti. Aenean sed nisl mattis risus gravida viverra a viverra tortor. Sed eu interdum ex, a gravida mauris.
+
+Praesent condimentum a tellus sit amet lobortis. Aliquam felis neque, hendrerit eu euismod ac, porttitor sit amet orci. Suspendisse iaculis scelerisque sapien euismod varius. Nunc dapibus libero a convallis fringilla. Mauris fringilla, purus a semper sagittis, nisl elit posuere.</string>
+    <string name="str_read_on_web">Read this review on the Web</string>
+    <string name="movie_poster_content_description">Movie poster</string>
 </resources>

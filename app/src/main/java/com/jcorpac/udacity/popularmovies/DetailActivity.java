@@ -1,6 +1,7 @@
 package com.jcorpac.udacity.popularmovies;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -46,12 +47,19 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         displayMovieDetails();
     }
 
+    public static final String DETAIL_MOVIE_TAG = "MOVIE_DETAILS";
+    public static Intent newIntent(Context context, Movie movie){
+        Intent toDetailView = new Intent(context, DetailActivity.class);
+        toDetailView.putExtra(DETAIL_MOVIE_TAG, movie);
+        return toDetailView;
+    }
+
     private void extractIntent() {
         Intent incomingMovie = getIntent();
         if (incomingMovie == null) { finish(); }
         else {
-            if (incomingMovie.hasExtra(Constants.DETAIL_INTENT_LABEL)) {
-                thisMovie = incomingMovie.getParcelableExtra(Constants.DETAIL_INTENT_LABEL);
+            if (incomingMovie.hasExtra(DETAIL_MOVIE_TAG)) {
+                thisMovie = incomingMovie.getParcelableExtra(DETAIL_MOVIE_TAG);
             } else {
                 finish();
             }
@@ -155,17 +163,15 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        Intent intent;
         switch (id) {
             case R.id.viewFavoriteIcon:
                 toggleFavorite();
                 break;
             case R.id.btnTrailers:
-                intent = new Intent(DetailActivity.this, TrailersActivity.class);
-                intent.putExtra("trailersUri", thisMovie.getTrailersUri());
-                intent.putExtra("movieTitle", thisMovie.getTitle());
-                startActivity(intent);
-
+                startActivity(TrailersActivity.newIntent(this, thisMovie.getTrailersUri(), thisMovie.getTitle()));
+                break;
+            case R.id.btnReviews:
+                startActivity(ReviewsActivity.newIntent(this, thisMovie.getReviewsUri(), thisMovie.getTitle()));
                 break;
         }
     }

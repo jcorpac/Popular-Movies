@@ -53,9 +53,9 @@ public class TrailersFragment extends Fragment{
         Uri trailersUri;
         String movieTitle;
         if(incomingIntent != null) {
-            trailersUri = incomingIntent.getParcelableExtra("trailersUri");
-            movieTitle = incomingIntent.getStringExtra("movieTitle");
-            getActivity().setTitle(movieTitle);
+            trailersUri = incomingIntent.getParcelableExtra(TrailersActivity.TRAILERS_URI_TAG);
+            movieTitle = incomingIntent.getStringExtra(TrailersActivity.TRAILERS_MOVIE_TAG);
+            getActivity().setTitle(movieTitle + " trailers");
             new GetTrailersTask().execute(trailersUri);
         }
         lstTrailers = (ListView)rootView.findViewById(R.id.lstTrailers);
@@ -162,10 +162,6 @@ public class TrailersFragment extends Fragment{
             this.context = context;
             this.data = data;
             this.layoutResourceId = layoutResourceId;
-
-            for (Trailer trailer:this.data) {
-                Log.d("TrailerAdapter", "TrailerAdapter: " + trailer.getTrailerName());
-            }
         }
 
         @NonNull

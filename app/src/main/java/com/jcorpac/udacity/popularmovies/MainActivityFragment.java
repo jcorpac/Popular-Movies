@@ -61,9 +61,7 @@ public class MainActivityFragment extends Fragment {
         posterLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent toDetailView = new Intent(getActivity(), DetailActivity.class);
-                toDetailView.putExtra(Constants.DETAIL_INTENT_LABEL, moviesList[position]);
-                startActivity(toDetailView);
+                startActivity(DetailActivity.newIntent(getActivity(), moviesList[position]));
             }
         });
 
