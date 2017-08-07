@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jcorpac.udacity.popularmovies.model.Review;
@@ -40,24 +41,31 @@ public class ReviewsFragment extends Fragment {
 
     ListView lstReviews;
 
+    ProgressBar prgReviewsProgress;
+    TextView txtReviewsError;
+
     public ReviewsFragment() {}
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_trailers, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_reviews, container, false);
 
         Intent incomingIntent = getActivity().getIntent();
         Uri reviewsUri;
         String movieTitle;
+        prgReviewsProgress = (ProgressBar)rootView.findViewById(R.id.prg_reviews_progress);
+        txtReviewsError = (TextView)rootView.findViewById(R.id.txt_reviews_error);
         if(incomingIntent != null) {
             reviewsUri = incomingIntent.getParcelableExtra(ReviewsActivity.REVIEWS_URI_TAG);
+            Log.d("REVIEWS", "onCreateView: " + reviewsUri.toString());
             movieTitle = incomingIntent.getStringExtra(ReviewsActivity.REVIEWS_MOVIE_TAG);
             getActivity().setTitle(movieTitle + " reviews");
             new GetReviewsTask().execute(reviewsUri);
         }
-        lstReviews = (ListView)rootView.findViewById(R.id.lstTrailers);
+        lstReviews = (ListView)rootView.findViewById(R.id.lst_reviews);
+
         return rootView;
     }
 
@@ -67,6 +75,12 @@ public class ReviewsFragment extends Fragment {
 
         String serviceJsonStr = null;
         ArrayList<Review> reviewsList = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prgReviewsProgress.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected ArrayList<Review> doInBackground(Uri... params) {
@@ -141,9 +155,13 @@ public class ReviewsFragment extends Fragment {
         @Override
         protected void onPostExecute(ArrayList<Review> reviews) {
             super.onPostExecute(reviews);
+            prgReviewsProgress.setVisibility(View.INVISIBLE);
             if (reviews != null && reviews.size() > 0) {
                 ReviewsAdapter adapter = new ReviewsAdapter(getActivity(), R.layout.review_row_item, reviews);
                 lstReviews.setAdapter(adapter);
+            } else {
+                lstReviews.setVisibility(View.INVISIBLE);
+                txtReviewsError.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -173,9 +191,9 @@ public class ReviewsFragment extends Fragment {
                 row = inflater.inflate(layoutResourceId, null, false);
 
                 holder = new ReviewHolder();
-                holder.txtAuthorName = (TextView)row.findViewById(R.id.txtReviewerName);
-                holder.txtReviewContent = (TextView) row.findViewById(R.id.txtReviewText);
-                holder.btnToWeb = (Button) row.findViewById(R.id.btnToWeb);
+                holder.txtAuthorName = (TextView)row.findViewById(R.id.txt_reviewer_name);
+                holder.txtReviewContent = (TextView) row.findViewById(R.id.txt_review_content);
+                holder.btnToWeb = (Button) row.findViewById(R.id.btn_read_on_web);
 
                 row.setTag(holder);
             } else {

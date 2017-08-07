@@ -13,11 +13,9 @@ import android.support.annotation.NonNull;
 import com.jcorpac.udacity.popularmovies.data.FavoritesContract.FavoritesEntry;
 
 public class FavoritesProvider extends ContentProvider {
-    private final String LOG_TAG = this.getClass().getSimpleName();
 
     public static final int ALL_FAVORITES = 100;
     public static final int FAVORITE_WITH_ID = 101;
-
     private static final UriMatcher sUriMatcher = buildUriMatcher();
 
     private static UriMatcher buildUriMatcher() {

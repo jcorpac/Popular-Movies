@@ -16,7 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.jcorpac.udacity.popularmovies.model.Movie;
 
@@ -40,6 +41,8 @@ public class MainActivityFragment extends Fragment {
 
     private ImageAdapter movieAdapter;
     private GridView posterLayout;
+    private ProgressBar prgMoviesProgress;
+    private TextView txtMoviesError;
 
     public MainActivityFragment() {
         setHasOptionsMenu(true);
@@ -65,12 +68,15 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
+        prgMoviesProgress = (ProgressBar)rootView.findViewById(R.id.prg_movies_progress);
+        txtMoviesError = (TextView)rootView.findViewById(R.id.txt_movies_error);
+
         return rootView;
     }
 
     private void updateMovies() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String sortMoviesBy = prefs.getString(getString(R.string.sortByKey), getString(R.string.strDefaultSortValue));
+        String sortMoviesBy = prefs.getString(getString(R.string.sort_by_key), getString(R.string.default_sort_value));
 
         new GetMoviesTask().execute(sortMoviesBy);
     }
@@ -96,13 +102,18 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
-    public class GetMoviesTask extends AsyncTask<String, Void, Movie[]> {
+    private class GetMoviesTask extends AsyncTask<String, Void, Movie[]> {
 
         final String LOG_TAG = this.getClass().getSimpleName();
 
         String serviceJsonStr = null;
         Movie[] movies = null;
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prgMoviesProgress.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected Movie[] doInBackground(String... params) {
@@ -125,7 +136,7 @@ public class MainActivityFragment extends Fragment {
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 if (inputStream == null) {
                     return null;
                 }
@@ -133,7 +144,7 @@ public class MainActivityFragment extends Fragment {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
-                    buffer.append(line + "\n");
+                    buffer.append(line).append("\n");
                 }
 
                 if (buffer.length() == 0) {
@@ -185,6 +196,7 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected void onPostExecute(Movie[] movies) {
             super.onPostExecute(movies);
+            prgMoviesProgress.setVisibility(View.INVISIBLE);
             if (movies != null) {
                 moviesList = movies;
 
@@ -193,7 +205,8 @@ public class MainActivityFragment extends Fragment {
                 movieAdapter.notifyDataSetChanged();
                 posterLayout.setAdapter(movieAdapter);
             } else {
-                Toast.makeText(getContext(), "Error Retrieving New Movies", Toast.LENGTH_SHORT).show();
+                posterLayout.setVisibility(View.INVISIBLE);
+                txtMoviesError.setVisibility(View.VISIBLE);
             }
         }
     }

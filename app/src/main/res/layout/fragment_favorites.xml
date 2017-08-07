@@ -14,4 +14,15 @@
         android:stretchMode="columnWidth"
         android:columnWidth="100dp"/>
 
+    <TextView
+        android:id="@+id/txt_favorites_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/no_favorites_found"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
 </FrameLayout>

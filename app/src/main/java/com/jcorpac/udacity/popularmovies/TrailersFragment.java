@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jcorpac.udacity.popularmovies.model.Trailer;
@@ -34,13 +35,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class TrailersFragment extends Fragment{
 
     private ListView lstTrailers;
+    private ProgressBar prgTrailersProgress;
+    private TextView txtTrailersError;
 
     public TrailersFragment() {}
 
@@ -52,13 +51,15 @@ public class TrailersFragment extends Fragment{
         Intent incomingIntent = getActivity().getIntent();
         Uri trailersUri;
         String movieTitle;
+        txtTrailersError = (TextView)rootView.findViewById(R.id.txt_trailers_error);
+        prgTrailersProgress = (ProgressBar)rootView.findViewById(R.id.prg_trailers_progress);
         if(incomingIntent != null) {
             trailersUri = incomingIntent.getParcelableExtra(TrailersActivity.TRAILERS_URI_TAG);
             movieTitle = incomingIntent.getStringExtra(TrailersActivity.TRAILERS_MOVIE_TAG);
             getActivity().setTitle(movieTitle + " trailers");
             new GetTrailersTask().execute(trailersUri);
         }
-        lstTrailers = (ListView)rootView.findViewById(R.id.lstTrailers);
+        lstTrailers = (ListView)rootView.findViewById(R.id.lst_trailers);
         return rootView;
     }
 
@@ -68,6 +69,12 @@ public class TrailersFragment extends Fragment{
 
         String serviceJsonStr = null;
         ArrayList<Trailer> trailers = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            prgTrailersProgress.setVisibility(View.VISIBLE);
+        }
 
         @Override
         protected ArrayList<Trailer> doInBackground(Uri... params) {
@@ -142,10 +149,15 @@ public class TrailersFragment extends Fragment{
         @Override
         protected void onPostExecute(ArrayList<Trailer> trailers) {
             super.onPostExecute(trailers);
+            prgTrailersProgress.setVisibility(View.INVISIBLE);
             if (trailers != null && trailers.size() > 0) {
                 lstTrailers.setMinimumHeight(trailers.size()*50);
                 TrailerAdapter adapter = new TrailerAdapter(getActivity(), R.layout.trailer_row_item, trailers);
                 lstTrailers.setAdapter(adapter);
+            }
+            else {
+                lstTrailers.setVisibility(View.INVISIBLE);
+                txtTrailersError.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -175,9 +187,9 @@ public class TrailersFragment extends Fragment{
                 row = inflater.inflate(layoutResourceId, null, false);
 
                 holder = new TrailerHolder();
-                holder.titleText = (TextView)row.findViewById(R.id.trailerName);
-                holder.playButton = (ImageButton)row.findViewById(R.id.playButton);
-                holder.shareButton = (ImageButton)row.findViewById(R.id.shareButton);
+                holder.titleText = (TextView)row.findViewById(R.id.txt_trailer_name);
+                holder.playButton = (ImageButton)row.findViewById(R.id.btn_play_trailer);
+                holder.shareButton = (ImageButton)row.findViewById(R.id.btn_share_trailer);
 
                 row.setTag(holder);
             } else {
@@ -218,7 +230,6 @@ public class TrailersFragment extends Fragment{
                     .setType("text/plain")
                     .setText(message)
                     .getIntent();
-            //shareIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
             shareIntent.setAction(Intent.ACTION_SEND);
             startActivity(shareIntent);
         }

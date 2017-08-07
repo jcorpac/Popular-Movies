@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final String LOG_TAG = this.getClass().getSimpleName();
     private Movie thisMovie;
 
     private ImageView imgFavoriteStar;
@@ -35,8 +34,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        txtFavoriteLabel = (TextView) findViewById(R.id.txtFavLabel);
-        imgFavoriteStar = (ImageView) findViewById(R.id.imgFavStar);
+        txtFavoriteLabel = (TextView) findViewById(R.id.img_favorite_label);
+        imgFavoriteStar = (ImageView) findViewById(R.id.img_favorite_star);
     }
 
     @Override
@@ -69,13 +68,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private void displayMovieDetails() {
         this.setTitle(thisMovie.getTitle());
 
-        TextView movieTitle = (TextView)findViewById(R.id.txtMovieTitle);
+        TextView movieTitle = (TextView)findViewById(R.id.txt_movie_title);
         movieTitle.setText(thisMovie.getTitle());
 
-        TextView movieSummary = (TextView)findViewById(R.id.txtSummaryText);
+        TextView movieSummary = (TextView)findViewById(R.id.txt_summary_text);
         movieSummary.setText(thisMovie.getSummary());
 
-        ImageView moviePoster = (ImageView)findViewById(R.id.imgPoster);
+        ImageView moviePoster = (ImageView)findViewById(R.id.img_poster);
         String posterURL = Constants.POSTER_BASE_URL +Constants.POSTER_RES+thisMovie.getPosterURL();
         Picasso.with(this)
                 .load(posterURL)
@@ -83,10 +82,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 .placeholder(R.drawable.ic_placeholder)
                 .into(moviePoster);
 
-        TextView userRating = (TextView)findViewById(R.id.txtUserRating);
+        TextView userRating = (TextView)findViewById(R.id.txt_user_rating);
         userRating.setText(String.valueOf(thisMovie.getVoteAverage()));
 
-        TextView releaseDate = (TextView)findViewById(R.id.txtReleaseDate);
+        TextView releaseDate = (TextView)findViewById(R.id.txt_release_date);
         releaseDate.setText(thisMovie.getReleaseDate());
 
         Cursor favoriteEntry = getContentResolver().query(FavoritesEntry.CONTENT_URI.buildUpon().appendPath(thisMovie.getMovieID()).build(),
@@ -95,13 +94,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if(favoriteEntry != null)
             favoriteEntry.close();
 
-        View favoritesIcon = findViewById(R.id.viewFavoriteIcon);
+        View favoritesIcon = findViewById(R.id.view_favorite_icon);
         favoritesIcon.setOnClickListener(this);
 
-        Button btnTrailers = (Button)findViewById(R.id.btnTrailers);
+        Button btnTrailers = (Button)findViewById(R.id.btn_view_trailers);
         btnTrailers.setOnClickListener(this);
 
-        Button btnReviews = (Button)findViewById(R.id.btnReviews);
+        Button btnReviews = (Button)findViewById(R.id.btn_read_reviews);
         btnReviews.setOnClickListener(this);
 
         displayFavorite();
@@ -109,11 +108,11 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     private void displayFavorite() {
         if(isFavorite){
-            imgFavoriteStar.setColorFilter(ContextCompat.getColor(this, R.color.colorFavoriteEnabled));
-            txtFavoriteLabel.setText(getString(R.string.strFavorite));
+            imgFavoriteStar.setColorFilter(ContextCompat.getColor(this, R.color.color_favorite_enabled));
+            txtFavoriteLabel.setText(getString(R.string.favorite));
         } else {
-            imgFavoriteStar.setColorFilter(ContextCompat.getColor(this, R.color.colorFavoriteDisabled));
-            txtFavoriteLabel.setText(getString(R.string.strNotFavorite));
+            imgFavoriteStar.setColorFilter(ContextCompat.getColor(this, R.color.color_favorite_disabled));
+            txtFavoriteLabel.setText(getString(R.string.not_favorite));
         }
     }
 
@@ -142,7 +141,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     private void removeFavorite() {
-        int numFavoritesDeleted = getContentResolver().delete(FavoritesEntry.CONTENT_URI.buildUpon().appendPath(thisMovie.getMovieID()).build(), null, null);
+        int numFavoritesDeleted = getContentResolver().delete(FavoritesEntry.CONTENT_URI.buildUpon()
+                .appendPath(thisMovie.getMovieID()).build(), null, null);
         if(numFavoritesDeleted > 0){
             isFavorite = false;
             getContentResolver().notifyChange(FavoritesEntry.CONTENT_URI, null);
@@ -164,13 +164,13 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
-            case R.id.viewFavoriteIcon:
+            case R.id.view_favorite_icon:
                 toggleFavorite();
                 break;
-            case R.id.btnTrailers:
+            case R.id.btn_view_trailers:
                 startActivity(TrailersActivity.newIntent(this, thisMovie.getTrailersUri(), thisMovie.getTitle()));
                 break;
-            case R.id.btnReviews:
+            case R.id.btn_read_reviews:
                 startActivity(ReviewsActivity.newIntent(this, thisMovie.getReviewsUri(), thisMovie.getTitle()));
                 break;
         }

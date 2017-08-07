@@ -6,13 +6,13 @@
 
 
     <TextView
-        android:id="@+id/txtReviewTitle"
+        android:id="@+id/txt_reviewer_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/str_review_title"
+        android:text="@string/review_name_title"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
@@ -20,32 +20,32 @@
         />
 
     <TextView
-        android:id="@+id/txtReviewerName"
+        android:id="@+id/txt_reviewer_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:layout_toRightOf="@id/txtReviewTitle"
-        android:layout_toEndOf="@id/txtReviewTitle"
-        android:layout_alignBaseline="@id/txtReviewTitle"
+        android:layout_toRightOf="@id/txt_reviewer_title"
+        android:layout_toEndOf="@id/txt_reviewer_title"
+        android:layout_alignBaseline="@id/txt_reviewer_title"
         tools:text="Reviewer Name " />
 
     <TextView
-        android:id="@+id/txtReviewText"
+        android:id="@+id/txt_review_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:layout_below="@id/txtReviewTitle"
+        android:layout_below="@id/txt_reviewer_title"
         tools:text="@string/lorem_ipsum" />
 
     <Button
-        android:id="@+id/btnToWeb"
+        android:id="@+id/btn_read_on_web"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="@string/str_read_on_web"
+        android:text="@string/read_on_web_button"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/txtReviewText" />
+        android:layout_below="@+id/txt_review_content" />
 </RelativeLayout>

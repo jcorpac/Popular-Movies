@@ -1,6 +1,7 @@
 package com.jcorpac.udacity.popularmovies;
 
 import android.app.Activity;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -10,17 +11,18 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ImageAdapter extends ArrayAdapter<String> {
+class ImageAdapter extends ArrayAdapter<String> {
 
-    ArrayList<String> posterURLArray;
+    private ArrayList<String> posterURLArray;
 
-    public ImageAdapter(Activity context, ArrayList<String> urlList){
+    ImageAdapter(Activity context, ArrayList<String> urlList){
         super(context, 0, urlList);
         posterURLArray = urlList;
     }
 
     // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
+    @NonNull
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
 
         ImageView imageView;
 

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.jcorpac.udacity.popularmovies.data.FavoritesContract.FavoritesEntry;
 import com.jcorpac.udacity.popularmovies.model.Movie;
@@ -18,13 +19,12 @@ import java.util.Arrays;
 
 public class FavoritesFragment extends Fragment {
 
-    private final String LOG_TAG = this.getClass().getSimpleName();
-
     Movie[] favMoviesList;
     String[] thumbnailArray;
 
     private ImageAdapter movieAdapter;
     private GridView posterLayout;
+    private TextView txtErrorMessage;
 
     public FavoritesFragment() {}
 
@@ -37,6 +37,7 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
+        txtErrorMessage = (TextView)rootView.findViewById(R.id.txt_favorites_error);
         posterLayout = (GridView)rootView.findViewById(R.id.poster_layout);
 
         posterLayout.setAdapter(movieAdapter);
@@ -63,39 +64,40 @@ public class FavoritesFragment extends Fragment {
                 null,
                 FavoritesEntry._ID);
 
-        favMoviesList = new Movie[favMoviesCursor.getCount()];
-        thumbnailArray = new String[favMoviesCursor.getCount()];
-        String movieTitle;
-        String movieSummary;
-        String posterURL;
-        String releaseDate;
-        double movieVoteAverage;
-        String movieID;
-        Movie newMovie;
-        int movieIndex = 0;
+        if(favMoviesCursor == null || favMoviesCursor.getCount() == 0){
+            posterLayout.setVisibility(View.INVISIBLE);
+            txtErrorMessage.setVisibility(View.VISIBLE);
+        } else {
+            favMoviesList = new Movie[favMoviesCursor.getCount()];
+            thumbnailArray = new String[favMoviesCursor.getCount()];
+            String movieTitle, movieSummary, posterURL, releaseDate, movieID;
+            double movieVoteAverage;
+            Movie newMovie;
+            int movieIndex = 0;
 
-        try {
-            while (favMoviesCursor.moveToNext()) {
-                movieTitle = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_TITLE));
-                movieSummary = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_SUMMARY));
-                posterURL = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_POSTER_URL));
-                releaseDate = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_RELEASE_DATE));
-                movieVoteAverage = favMoviesCursor.getDouble(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_VOTE_AVERAGE));
-                movieID = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_MOVIE_ID));
+            try {
+                while (favMoviesCursor.moveToNext()) {
+                    movieTitle = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_TITLE));
+                    movieSummary = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_SUMMARY));
+                    posterURL = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_POSTER_URL));
+                    releaseDate = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_RELEASE_DATE));
+                    movieVoteAverage = favMoviesCursor.getDouble(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_VOTE_AVERAGE));
+                    movieID = favMoviesCursor.getString(favMoviesCursor.getColumnIndex(FavoritesEntry.COLUMN_MOVIE_ID));
 
-                newMovie = new Movie(movieTitle, movieSummary, posterURL, releaseDate, movieVoteAverage, movieID);
-                this.favMoviesList[movieIndex] = newMovie;
-                this.thumbnailArray[movieIndex] = newMovie.getPosterThumbnailURL();
+                    newMovie = new Movie(movieTitle, movieSummary, posterURL, releaseDate, movieVoteAverage, movieID);
+                    this.favMoviesList[movieIndex] = newMovie;
+                    this.thumbnailArray[movieIndex] = newMovie.getPosterThumbnailURL();
 
-                movieIndex++;
+                    movieIndex++;
+                }
+            } finally {
+                favMoviesCursor.close();
             }
-        } finally {
-            favMoviesCursor.close();
-        }
 
-        ArrayList<String> thumbnailArrayList = new ArrayList<>(Arrays.asList(thumbnailArray));
-        movieAdapter = new ImageAdapter(getActivity(), thumbnailArrayList);
-        movieAdapter.notifyDataSetChanged();
-        posterLayout.setAdapter(movieAdapter);
+            ArrayList<String> thumbnailArrayList = new ArrayList<>(Arrays.asList(thumbnailArray));
+            movieAdapter = new ImageAdapter(getActivity(), thumbnailArrayList);
+            movieAdapter.notifyDataSetChanged();
+            posterLayout.setAdapter(movieAdapter);
+        }
     }
 }
