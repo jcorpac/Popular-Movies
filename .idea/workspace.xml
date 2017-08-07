@@ -30,29 +30,9 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="34b14ff4-9eb0-4550-9e2b-c468b0359e41" name="Default" comment="Minor Code cleanup">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings_activity_settings.xml" afterPath="" />
+    <list default="true" id="34b14ff4-9eb0-4550-9e2b-c468b0359e41" name="Default" comment="Minor bug fix">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/DetailActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/DetailActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/FavoritesFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/FavoritesFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ImageAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ImageAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/MainActivityFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/MainActivityFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/SettingsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/SettingsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/TrailersFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/TrailersFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesContract.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesDbHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesDbHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesProvider.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favorites.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favorites.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reviews.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_reviews.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_trailers.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_trailers.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/review_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/review_row_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/trailer_row_item.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/trailer_row_item.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/xml/pref_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/xml/pref_main.xml" />
     </list>
     <ignored path="Popular Movies.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -177,7 +157,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainActivityFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ReviewsFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="203" column="52" selection-start-line="203" selection-start-column="52" selection-end-line="203" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivityFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/MainActivityFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="172">
@@ -185,18 +175,6 @@
               <folding>
                 <element signature="e#2463#2494#0" expanded="true" />
                 <element signature="e#2496#2534#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FavoritesFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/FavoritesFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="72" column="76" selection-start-line="72" selection-start-column="76" selection-end-line="72" selection-end-column="76" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1908,7 +1886,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_trailers.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/review_row_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/trailer_row_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/TrailersFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/xml/pref_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
@@ -1918,9 +1895,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/data/FavoritesDbHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/FavoritesFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/DetailActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/Constants.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ImageAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/MainActivityFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/Constants.java" />
       </list>
     </option>
   </component>
@@ -2825,7 +2803,14 @@
       <option name="project" value="LOCAL" />
       <updated>1502062800063</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Minor Code cleanup">
+      <created>1502081538499</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1502081538499</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="5">
@@ -2930,7 +2915,8 @@
     <MESSAGE value="Added Movie Trailers&#10;Added a trailer activity and fragment, and a button on the Detail Activity to start the Activity" />
     <MESSAGE value="Added Movie Reviews&#10;Added screen to display movie reviews&#10;Refactored Activities that receive data with a function to generate Intents that they are able to accept" />
     <MESSAGE value="Minor Code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor Code cleanup" />
+    <MESSAGE value="Minor bug fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor bug fix" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -3210,14 +3196,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="195" column="80" selection-start-line="195" selection-start-column="80" selection-end-line="195" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/TrailersActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -3274,7 +3252,7 @@
         <state relative-caret-position="-1583">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3302,7 +3280,7 @@
         <state relative-caret-position="238">
           <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3311,16 +3289,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="304">
           <caret line="72" column="76" selection-start-line="72" selection-start-column="76" selection-end-line="72" selection-end-column="76" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/DetailActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -3346,14 +3314,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3402,6 +3362,32 @@
             <element signature="e#2463#2494#0" expanded="true" />
             <element signature="e#2496#2534#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/DetailActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="42" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/jcorpac/udacity/popularmovies/ReviewsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="203" column="52" selection-start-line="203" selection-start-column="52" selection-end-line="203" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>

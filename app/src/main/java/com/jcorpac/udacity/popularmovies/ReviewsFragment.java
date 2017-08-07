@@ -203,9 +203,6 @@ public class ReviewsFragment extends Fragment {
             thisReview = getItem(position);
             holder.txtAuthorName.setText(thisReview.getAuthor());
             String reviewContent = thisReview.getContent();
-            if (reviewContent.length() > 1000){
-                reviewContent = reviewContent.substring(0, 1000) + "...";
-            }
             holder.txtReviewContent.setText(reviewContent);
             holder.btnToWeb.setOnClickListener(new View.OnClickListener() {
                 @Override
