@@ -41,6 +41,10 @@ public class TrailersFragment extends Fragment{
     private ProgressBar prgTrailersProgress;
     private TextView txtTrailersError;
 
+    private final String LIST_VIEW_STATE_TAG = "listViewState";
+    private final String TRAILER_ARRAY_LIST = "trailersArray";
+    ArrayList<Trailer> trailerArray;
+
     public TrailersFragment() {}
 
     @Override
@@ -48,19 +52,32 @@ public class TrailersFragment extends Fragment{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_trailers, container, false);
 
+        lstTrailers = (ListView)rootView.findViewById(R.id.lst_trailers);
+        if(savedInstanceState != null) {
+            trailerArray = savedInstanceState.getParcelableArrayList(TRAILER_ARRAY_LIST);
+            lstTrailers.setAdapter(new TrailerAdapter(getActivity(), R.layout.trailer_row_item, trailerArray));
+            lstTrailers.onRestoreInstanceState(savedInstanceState.getParcelable(LIST_VIEW_STATE_TAG));
+        }
+
         Intent incomingIntent = getActivity().getIntent();
         Uri trailersUri;
         String movieTitle;
         txtTrailersError = (TextView)rootView.findViewById(R.id.txt_trailers_error);
         prgTrailersProgress = (ProgressBar)rootView.findViewById(R.id.prg_trailers_progress);
-        if(incomingIntent != null) {
+        if(incomingIntent != null && trailerArray == null) {
             trailersUri = incomingIntent.getParcelableExtra(TrailersActivity.TRAILERS_URI_TAG);
             movieTitle = incomingIntent.getStringExtra(TrailersActivity.TRAILERS_MOVIE_TAG);
             getActivity().setTitle(movieTitle + " trailers");
             new GetTrailersTask().execute(trailersUri);
         }
-        lstTrailers = (ListView)rootView.findViewById(R.id.lst_trailers);
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LIST_VIEW_STATE_TAG, lstTrailers.onSaveInstanceState());
+        outState.putParcelableArrayList(TRAILER_ARRAY_LIST, trailerArray);
     }
 
     private class GetTrailersTask extends AsyncTask<Uri, Void, ArrayList<Trailer>> {
@@ -88,6 +105,8 @@ public class TrailersFragment extends Fragment{
                 URL serviceURL = new URL(serviceEndpoint.toString());
                 urlConnection = (HttpURLConnection) serviceURL.openConnection();
                 urlConnection.setRequestMethod("GET");
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(10000);
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
@@ -151,9 +170,8 @@ public class TrailersFragment extends Fragment{
             super.onPostExecute(trailers);
             prgTrailersProgress.setVisibility(View.INVISIBLE);
             if (trailers != null && trailers.size() > 0) {
-                lstTrailers.setMinimumHeight(trailers.size()*50);
-                TrailerAdapter adapter = new TrailerAdapter(getActivity(), R.layout.trailer_row_item, trailers);
-                lstTrailers.setAdapter(adapter);
+                trailerArray = trailers;
+                lstTrailers.setAdapter(new TrailerAdapter(getActivity(), R.layout.trailer_row_item, trailers));
             }
             else {
                 lstTrailers.setVisibility(View.INVISIBLE);

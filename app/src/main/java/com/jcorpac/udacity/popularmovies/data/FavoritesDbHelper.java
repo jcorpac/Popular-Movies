@@ -14,6 +14,10 @@ class FavoritesDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    // Sample update query string.
+    private static final String DB_UPDATE_1_TO_2 = "ALTER TABLE " + FavoritesEntry.TABLE_NAME
+            + " ADD COLUMN movieTrailerUri STRING";
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         final String CREATE_TABLE_SQL = "CREATE TABLE " + FavoritesEntry.TABLE_NAME + " (" +
@@ -31,7 +35,10 @@ class FavoritesDbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + FavoritesEntry.TABLE_NAME);
-        onCreate(db);
+        /*  Sample update code. Current DB version is still 1
+        if(oldVersion < 2) {
+            db.execSQL(DB_UPDATE_1_TO_2);
+        }
+        */
     }
 }

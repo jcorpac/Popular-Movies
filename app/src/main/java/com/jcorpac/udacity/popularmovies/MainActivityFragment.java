@@ -35,9 +35,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivityFragment extends Fragment {
-
     Movie[] moviesList;
     String[] thumbnailArray;
+
+    int mCurrentPosition;
+    private final String CURRENT_POSITION_TAG = "mCurrentPosition";
 
     private ImageAdapter movieAdapter;
     private GridView posterLayout;
@@ -57,10 +59,13 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+        if(savedInstanceState != null){
+            mCurrentPosition = savedInstanceState.getInt(CURRENT_POSITION_TAG);
+        }
+
         posterLayout = (GridView)rootView.findViewById(R.id.poster_layout);
-
         posterLayout.setAdapter(movieAdapter);
-
         posterLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -71,6 +76,7 @@ public class MainActivityFragment extends Fragment {
         prgMoviesProgress = (ProgressBar)rootView.findViewById(R.id.prg_movies_progress);
         txtMoviesError = (TextView)rootView.findViewById(R.id.txt_movies_error);
 
+        posterLayout.smoothScrollToPosition(mCurrentPosition);
         return rootView;
     }
 
@@ -102,6 +108,12 @@ public class MainActivityFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(CURRENT_POSITION_TAG, posterLayout.getFirstVisiblePosition());
+    }
+
     private class GetMoviesTask extends AsyncTask<String, Void, Movie[]> {
 
         final String LOG_TAG = this.getClass().getSimpleName();
@@ -123,16 +135,33 @@ public class MainActivityFragment extends Fragment {
 
             final String API_PARAM = "api_key";
             final String SORT_BY_PARAM = "sort_by";
+            Uri serviceEndpoint;
 
-            Uri serviceEndpoint = Uri.parse(Constants.MOVIES_SERVICE).buildUpon()
-                    .appendQueryParameter(SORT_BY_PARAM, params[0] + ".desc")
-                    .appendQueryParameter(API_PARAM, Constants.API_KEY)
-                    .build();
+            String sortByParam = params[0];
+            switch(sortByParam){
+                case("popularity"):
+                    serviceEndpoint = Uri.parse(Constants.POPULAR_MOVIES_URL).buildUpon()
+                            .appendQueryParameter(API_PARAM, Constants.API_KEY)
+                            .build();
+                    break;
+                case("vote_average"):
+                    serviceEndpoint = Uri.parse(Constants.TOP_RATED_MOVIES_URL).buildUpon()
+                            .appendQueryParameter(API_PARAM, Constants.API_KEY)
+                            .build();
+                    break;
+                default:
+                    serviceEndpoint = Uri.parse(Constants.MOVIES_SERVICE_URL).buildUpon()
+                            .appendQueryParameter(SORT_BY_PARAM, sortByParam + ".desc")
+                            .appendQueryParameter(API_PARAM, Constants.API_KEY)
+                            .build();
+            }
 
             try {
                 URL serviceURL = new URL(serviceEndpoint.toString());
                 urlConnection = (HttpURLConnection) serviceURL.openConnection();
                 urlConnection.setRequestMethod("GET");
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(10000);
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
@@ -204,6 +233,7 @@ public class MainActivityFragment extends Fragment {
                 movieAdapter = new ImageAdapter(getActivity(), thumbnailArrayList);
                 movieAdapter.notifyDataSetChanged();
                 posterLayout.setAdapter(movieAdapter);
+                posterLayout.smoothScrollToPosition(mCurrentPosition);
             } else {
                 posterLayout.setVisibility(View.INVISIBLE);
                 txtMoviesError.setVisibility(View.VISIBLE);

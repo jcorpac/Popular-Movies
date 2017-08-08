@@ -11,11 +11,9 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -39,13 +37,13 @@
                 android:value="com.jcorpac.udacity.popularmovies.MainActivity" />
         </activity>
         <activity android:name=".TrailersActivity" />
+        <activity android:name=".ReviewsActivity"/>
 
         <provider
             android:name=".data.FavoritesProvider"
             android:authorities="com.jcorpac.udacity.popularmovies"
             android:exported="false" />
 
-        <activity android:name=".ReviewsActivity"></activity>
     </application>
 
 </manifest>

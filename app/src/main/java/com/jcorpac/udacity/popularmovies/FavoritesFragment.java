@@ -22,6 +22,9 @@ public class FavoritesFragment extends Fragment {
     Movie[] favMoviesList;
     String[] thumbnailArray;
 
+    int mCurrentPosition;
+    private final String CURRENT_POSITION_TAG = "mCurrentPosition";
+
     private ImageAdapter movieAdapter;
     private GridView posterLayout;
     private TextView txtErrorMessage;
@@ -37,17 +40,21 @@ public class FavoritesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_favorites, container, false);
+        if(savedInstanceState != null) {
+            mCurrentPosition = savedInstanceState.getInt(CURRENT_POSITION_TAG);
+        }
+
         txtErrorMessage = (TextView)rootView.findViewById(R.id.txt_favorites_error);
+
         posterLayout = (GridView)rootView.findViewById(R.id.poster_layout);
-
         posterLayout.setAdapter(movieAdapter);
-
         posterLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 startActivity(DetailActivity.newIntent(getActivity(), favMoviesList[position]));
             }
         });
+        posterLayout.smoothScrollToPosition(mCurrentPosition);
         return rootView;
     }
 
@@ -98,6 +105,13 @@ public class FavoritesFragment extends Fragment {
             movieAdapter = new ImageAdapter(getActivity(), thumbnailArrayList);
             movieAdapter.notifyDataSetChanged();
             posterLayout.setAdapter(movieAdapter);
+            posterLayout.smoothScrollToPosition(mCurrentPosition);
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(CURRENT_POSITION_TAG, posterLayout.getFirstVisiblePosition());
     }
 }

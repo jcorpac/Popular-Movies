@@ -33,16 +33,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ReviewsFragment extends Fragment {
 
     ListView lstReviews;
-
     ProgressBar prgReviewsProgress;
     TextView txtReviewsError;
+
+    private final String LIST_VIEW_STATE_TAG = "listViewState";
+    private final String REVIEWS_ARRAY_LIST = "reviewsArray";
+    ArrayList<Review> reviewsArray;
 
     public ReviewsFragment() {}
 
@@ -52,21 +51,33 @@ public class ReviewsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_reviews, container, false);
 
+        lstReviews = (ListView)rootView.findViewById(R.id.lst_reviews);
+        if(savedInstanceState != null) {
+            reviewsArray = savedInstanceState.getParcelableArrayList(REVIEWS_ARRAY_LIST);
+            lstReviews.setAdapter(new ReviewsAdapter(getActivity(), R.layout.review_row_item, reviewsArray));
+            lstReviews.onRestoreInstanceState(savedInstanceState.getParcelable(LIST_VIEW_STATE_TAG));
+        }
+
         Intent incomingIntent = getActivity().getIntent();
         Uri reviewsUri;
         String movieTitle;
         prgReviewsProgress = (ProgressBar)rootView.findViewById(R.id.prg_reviews_progress);
         txtReviewsError = (TextView)rootView.findViewById(R.id.txt_reviews_error);
-        if(incomingIntent != null) {
+        if(incomingIntent != null && reviewsArray == null) {
             reviewsUri = incomingIntent.getParcelableExtra(ReviewsActivity.REVIEWS_URI_TAG);
-            Log.d("REVIEWS", "onCreateView: " + reviewsUri.toString());
             movieTitle = incomingIntent.getStringExtra(ReviewsActivity.REVIEWS_MOVIE_TAG);
             getActivity().setTitle(movieTitle + " reviews");
             new GetReviewsTask().execute(reviewsUri);
         }
-        lstReviews = (ListView)rootView.findViewById(R.id.lst_reviews);
 
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(LIST_VIEW_STATE_TAG, lstReviews.onSaveInstanceState());
+        outState.putParcelableArrayList(REVIEWS_ARRAY_LIST, reviewsArray);
     }
 
     private class GetReviewsTask extends AsyncTask<Uri, Void, ArrayList<Review>> {
@@ -94,6 +105,8 @@ public class ReviewsFragment extends Fragment {
                 URL serviceURL = new URL(serviceEndpoint.toString());
                 urlConnection = (HttpURLConnection) serviceURL.openConnection();
                 urlConnection.setRequestMethod("GET");
+                urlConnection.setConnectTimeout(5000);
+                urlConnection.setReadTimeout(10000);
                 urlConnection.connect();
 
                 InputStream inputStream = urlConnection.getInputStream();
@@ -157,8 +170,8 @@ public class ReviewsFragment extends Fragment {
             super.onPostExecute(reviews);
             prgReviewsProgress.setVisibility(View.INVISIBLE);
             if (reviews != null && reviews.size() > 0) {
-                ReviewsAdapter adapter = new ReviewsAdapter(getActivity(), R.layout.review_row_item, reviews);
-                lstReviews.setAdapter(adapter);
+                reviewsArray = reviews;
+                lstReviews.setAdapter(new ReviewsAdapter(getActivity(), R.layout.review_row_item, reviews));
             } else {
                 lstReviews.setVisibility(View.INVISIBLE);
                 txtReviewsError.setVisibility(View.VISIBLE);
